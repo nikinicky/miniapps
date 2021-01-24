@@ -2,12 +2,6 @@
 A simple API. User can create, edit, and delete profiles. For now, this code only run localy, I am still learning how to deploy Go project to a server.
 First, you need to create database and table user. I provide query to create table user below.
 ```sql
--- public.users definition
-
--- Drop table
-
--- DROP TABLE public.users;
-
 CREATE TABLE public.users (
 	id serial NOT NULL DEFAULT nextval('users_id_seq1'::regclass),
 	email varchar NULL,
@@ -18,6 +12,8 @@ CREATE TABLE public.users (
 	CONSTRAINT users_username_key UNIQUE (username)
 );
 ```
+
+You also can't change password in this app. If you try to change/update password via `PUT /users/{id}`, you will get message "Not Implemented"
 ___
 
 ## Endpoints
