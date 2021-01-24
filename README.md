@@ -13,7 +13,6 @@ CREATE TABLE public.users (
 );
 ```
 
-You also can't change password in this app. If you try to change/update password via `PUT /users/{id}`, you will get message "Not Implemented"
 ___
 
 ## Endpoints
