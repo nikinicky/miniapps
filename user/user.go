@@ -4,6 +4,7 @@ import (
   "fmt"
   "strings"
   "errors"
+  "os"
   "database/sql"
   "golang.org/x/crypto/bcrypt"
   _ "github.com/lib/pq"
@@ -38,11 +39,11 @@ type NullString struct {
 const (
   host   = "localhost"
   port   = 5432
-  user   = "kyv"
   dbname = "miniapps"
 )
 
 func OpenConnection() *sql.DB {
+  user := os.Getenv("USER")
   psqlInfo := fmt.Sprintf("host=%s port=%d user=%s dbname=%s sslmode=disable", host, port, user, dbname)
 
   db, err := sql.Open("postgres", psqlInfo)
