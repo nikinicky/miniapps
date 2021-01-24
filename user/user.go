@@ -110,7 +110,8 @@ func UserExists(id string) bool {
 
 func UpdateUser(id string, data PostPayload) (bool, error) {
   if _, valid := data["password"]; valid {
-    return false, errors.New("Not Implemented")
+    hashedPassword, _ := bcrypt.GenerateFromPassword([]byte(data["password"]), 8)
+    data["password"] = string(hashedPassword)
   }
 
   statement := "UPDATE users SET "
@@ -189,7 +190,7 @@ func (u *DBUserData) CheckPassword(providedPassword string) error {
   err := bcrypt.CompareHashAndPassword([]byte(string(u.Password)), []byte(providedPassword))
 
   if err != nil {
-    return err
+    return errors.New("The username or password is incorrect")
   }
 
   return nil
