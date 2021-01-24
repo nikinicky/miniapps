@@ -90,6 +90,10 @@ func UserExists(id string) bool {
 }
 
 func UpdateUser(id string, data PostPayload) (bool, error) {
+  if _, valid := data["password"]; valid {
+    return false, errors.New("Not Implemented")
+  }
+
   statement := "UPDATE users SET "
   var dataset []string
   for i, d := range data {
@@ -106,7 +110,7 @@ func UpdateUser(id string, data PostPayload) (bool, error) {
     return false, err
   }
 
-  return true, err
+  return true, nil
 }
 
 func DeleteUser(id string) (bool, error) {
