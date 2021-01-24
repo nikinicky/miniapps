@@ -96,6 +96,34 @@ func GetAllUsers(w http.ResponseWriter, r *http.Request) {
   w.Write(usersBytes)
 }
 
+func GetUser(w http.ResponseWriter, r *http.Request) {
+  validToken := CheckToken(r)
+
+  if !validToken {
+    w.WriteHeader(http.StatusUnauthorized)
+    return
+  }
+
+  params := mux.Vars(r)
+  user, err := user.GetUser(params["id"])
+  if err != nil {
+    w.WriteHeader(http.StatusInternalServerError)
+    w.Write([]byte(err.Error()))
+    return
+  }
+
+  userBytes, err := json.Marshal(user)
+  if err != nil {
+    w.WriteHeader(http.StatusInternalServerError)
+    w.Write([]byte(err.Error()))
+    return
+  }
+
+  w.Header().Set("Content-Type", "application/json")
+  w.WriteHeader(http.StatusOK)
+  w.Write(userBytes)
+}
+
 func UpdateUser(w http.ResponseWriter, r *http.Request) {
   validToken := CheckToken(r)
 

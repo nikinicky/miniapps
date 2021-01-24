@@ -76,6 +76,24 @@ func GetAllUsers() ([]User, error) {
   return users, err
 }
 
+func GetUser(id string) (User, error) {
+  var user User
+  db := OpenConnection()
+  rows, err := db.Query("SELECT id, email, username, address FROM users WHERE id = $1", id)
+  if err != nil {
+    return user, err
+  }
+
+  for rows.Next() {
+    rows.Scan(&user.Id, &user.Email, &user.Username, &user.Address)
+  }
+
+  defer rows.Close()
+  defer db.Close()
+
+  return user, err
+}
+
 func UserExists(id string) bool {
   db := OpenConnection()
   rows, err := db.Query("SELECT id, email, username, address FROM users WHERE id = $1", id)
