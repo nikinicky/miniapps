@@ -1,5 +1,5 @@
 # miniapps
-A simple API. User can create, edit, and delete profiles. For now, this code only run localy, I am still learning how to deploy Go project to a server.
+A simple API. User can create, edit, and delete profiles. For now, this code only run localy.
 First, you need to create database and table user. I provide query to create table user below.
 ```sql
 CREATE TABLE public.users (
