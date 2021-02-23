@@ -1,0 +1,3 @@
+function telolet {
+  return "telolet"
+}
